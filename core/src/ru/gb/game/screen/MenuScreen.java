@@ -48,7 +48,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touch.set(screenX, Gdx.graphics.getHeight() - screenY);
-        length = touch.sub(0f, 0f).len();
+        length = touch.len();
         direction = touch.cpy().sub(position).nor();
         return super.touchDown(screenX, screenY, pointer, button);
     }
