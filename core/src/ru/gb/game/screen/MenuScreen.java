@@ -1,6 +1,5 @@
 package ru.gb.game.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -26,7 +25,6 @@ public class MenuScreen extends BaseScreen {
 
         img = new Texture("badlogic.jpg");
         logo = new Logo(img);
-//        logo.setHeightProportions(0.2f);
     }
 
     @Override
@@ -39,15 +37,8 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        float dt = Gdx.graphics.getDeltaTime();
-
-        batch.begin();
-        background.draw(batch);
-
-        logo.draw(batch);
-        logo.update(dt);
-
-        batch.end();
+        update(delta);
+        draw();
     }
 
     @Override
@@ -60,6 +51,18 @@ public class MenuScreen extends BaseScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         logo.touchDown(touch, pointer,button);
-        return super.touchDown(touch, pointer, button);
+        return false;
+    }
+
+    private void update(float delta) {
+        logo.update(delta);
+    }
+
+    private void draw() {
+        batch.begin();
+        background.draw(batch);
+
+        logo.draw(batch);
+        batch.end();
     }
 }
