@@ -1,5 +1,7 @@
 package ru.gb.game.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +17,8 @@ public class GameScreen extends BaseScreen {
 
     private static final int STAR_COUNT = 64;
 
+    private Sound bulletSound;
+
     private TextureAtlas atlas;
     private Texture bg;
     private Background background;
@@ -27,6 +31,7 @@ public class GameScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
+        bulletSound = Gdx.audio.newSound(Gdx.files.internal("android/assets/sounds/bullet.wav"));
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("textures/bg.png");
         background = new Background(bg);
@@ -38,7 +43,7 @@ public class GameScreen extends BaseScreen {
 
         bulletPool = new BulletPool();
 
-        mainShip = new MainShip(atlas, bulletPool);
+        mainShip = new MainShip(atlas, bulletPool, bulletSound);
 
     }
 
@@ -67,6 +72,7 @@ public class GameScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
+        bulletSound.dispose();
     }
 
     @Override
