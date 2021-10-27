@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.game.base.BaseScreen;
 import ru.gb.game.math.Rect;
+import ru.gb.game.pool.BulletPool;
 import ru.gb.game.sprites.Background;
 import ru.gb.game.sprites.MainShip;
 import ru.gb.game.sprites.Star;
@@ -19,6 +20,8 @@ public class GameScreen extends BaseScreen {
     private Background background;
 
     private Star[] stars;
+    private BulletPool bulletPool;
+
     private MainShip mainShip;
 
     @Override
@@ -33,7 +36,9 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
 
-        mainShip = new MainShip(atlas);
+        bulletPool = new BulletPool();
+
+        mainShip = new MainShip(atlas, bulletPool);
 
     }
 
@@ -41,6 +46,7 @@ public class GameScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         update(delta);
+        freeAllDestroyed();
         draw();
     }
 
@@ -60,26 +66,23 @@ public class GameScreen extends BaseScreen {
         super.dispose();
         bg.dispose();
         atlas.dispose();
+        bulletPool.dispose();
     }
 
     @Override
     public boolean keyDown(int keycode) {
+        mainShip.keyDown(keycode);
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        mainShip.keyUp(keycode);
         return false;
     }
 
     @Override
     public boolean keyTyped(char character) {
-        if (character == 'a') {
-            mainShip.moveLeft();
-        }
-        if (character == 'd') {
-            mainShip.moveRight();
-        }
         return false;
     }
 
@@ -99,7 +102,12 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.update(delta);
         }
+        bulletPool.updateActiveObjects(delta);
         mainShip.update(delta);
+    }
+
+    private void freeAllDestroyed() {
+        bulletPool.freeAllDestroyed();
     }
 
     private void draw() {
@@ -110,6 +118,7 @@ public class GameScreen extends BaseScreen {
             star.draw(batch);
         }
 
+        bulletPool.drawActiveObjects(batch);
         mainShip.draw(batch);
 
         batch.end();
