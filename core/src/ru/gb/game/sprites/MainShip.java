@@ -1,6 +1,5 @@
 package ru.gb.game.sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -53,7 +52,7 @@ public class MainShip extends Sprite {
     @Override
     public void update(float delta) {
         pos.mulAdd(v, delta);
-        timeSeconds += Gdx.graphics.getDeltaTime();
+        timeSeconds += delta;
         if(timeSeconds > shootPeriod){
             timeSeconds-=shootPeriod;
             shoot();
@@ -173,6 +172,4 @@ public class MainShip extends Sprite {
         bullet.set(this, bulletRegion, this.pos, bulletV, worldBounds, bulletHeight, bulletDamage);
         bulletSound.play(0.007f);
     }
-
-
 }
