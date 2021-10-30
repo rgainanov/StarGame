@@ -29,10 +29,7 @@ public class Bullet extends Sprite {
     ) {
         this.owner = owner;
         this.regions[0] = region;
-//        не знаю на сколько такое решение верно, проблема в том что в данный момент пули летят от центра коробля
-//        и если перемещять корабль из стороны в сторону то это очнь сильно заметно, добавив .add(0, owner.getHalfHeight())
-//        я попытался сместить начало пули к верху нашего спрайта
-        this.pos.set(pos).add(0, owner.getHalfHeight());
+        this.pos.set(pos);
         this.v.set(v);
         this.worldBounds = worldBounds;
         setHeightProportions(height);

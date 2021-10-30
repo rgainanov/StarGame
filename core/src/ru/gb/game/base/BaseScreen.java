@@ -3,7 +3,6 @@ package ru.gb.game.base;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
@@ -16,13 +15,12 @@ import ru.gb.game.math.Rect;
 public class BaseScreen implements Screen, InputProcessor {
 
     private Rect screenBounds;
-    private Rect worldBounds;
+    protected Rect worldBounds;
     private Rect glBounds;
 
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
 
-    private Music backgroundMusic;
     private final Vector2 touch = new Vector2();
 
     protected SpriteBatch batch;
@@ -36,9 +34,6 @@ public class BaseScreen implements Screen, InputProcessor {
         worldToGl = new Matrix4();
         screenToWorld = new Matrix3();
         batch = new SpriteBatch();
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("android/assets/sounds/music.mp3"));
-        backgroundMusic.setVolume(0.05f);
-        backgroundMusic.play();
         Gdx.input.setInputProcessor(this);
     }
 
@@ -88,7 +83,6 @@ public class BaseScreen implements Screen, InputProcessor {
     public void dispose() {
         System.out.println("dispose");
         batch.dispose();
-        backgroundMusic.dispose();
     }
 
     @Override
