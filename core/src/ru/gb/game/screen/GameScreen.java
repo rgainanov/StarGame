@@ -12,6 +12,8 @@ import ru.gb.game.math.Rect;
 import ru.gb.game.pool.BulletPool;
 import ru.gb.game.pool.EnemyPool;
 import ru.gb.game.sprites.Background;
+import ru.gb.game.sprites.Bullet;
+import ru.gb.game.sprites.EnemyShip;
 import ru.gb.game.sprites.MainShip;
 import ru.gb.game.sprites.Star;
 import ru.gb.game.util.EnemyEmitter;
@@ -132,7 +134,19 @@ public class GameScreen extends BaseScreen {
         enemyPool.updateActiveObjects(delta);
         mainShip.update(delta);
         enemyEmitter.generate(delta);
+        checkIfHit();
 
+    }
+
+    private void checkIfHit() {
+        for (EnemyShip es: enemyPool.getActiveObjects()) {
+            for (Bullet b: bulletPool.getActiveObjects()) {
+                if (!es.isOutside(b) && b.getOwner().equals(mainShip)) {
+                    b.destroy();
+                    es.setHp(es.getHp() - 1);
+                }
+            }
+        }
     }
 
     private void freeAllDestroyed() {

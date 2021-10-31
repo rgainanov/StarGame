@@ -40,11 +40,11 @@ public class EnemyEmitter {
     private final TextureRegion[] enemyLargeRegions;
 
     private final Vector2 enemySmallV = new Vector2(0f, -0.2f);
-    private final Vector2 enemyMediumV = new Vector2(0f, -0.3f);
+    private final Vector2 enemyMediumV = new Vector2(0f, -0.25f);
     private final Vector2 enemyLargeV = new Vector2(0f, -0.005f);
 
     private final Vector2 enemySmallBulletV = new Vector2(0f, -0.3f);
-    private final Vector2 enemyMediumBulletV = new Vector2(0f, -0.25f);
+    private final Vector2 enemyMediumBulletV = new Vector2(0f, -0.3f);
     private final Vector2 enemyLargeBulletV = new Vector2(0f, -0.3f);
 
     private float generateTimer;
