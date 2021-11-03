@@ -22,6 +22,14 @@ public class Ship extends Sprite{
     protected Vector2 v;
     protected Vector2 v0;
 
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
     protected float reloadTimer;
     protected float reloadInterval;
     protected Rect worldBounds;
